@@ -86,7 +86,7 @@
 <p><img src="/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/ndc%E7%BD%91%E6%A0%BC.jpg" alt></p>
 <hr>
 <h1 id="【Function类】"><a href="#【Function类】" class="headerlink" title="【Function类】"></a>【Function类】</h1><h2 id="dtrend-dtrend-n-dtrend-msg-n"><a href="#dtrend-dtrend-n-dtrend-msg-n" class="headerlink" title="dtrend, dtrend_n, dtrend_msg_n"></a><a href="http://www.ncl.ucar.edu/Document/Functions/Built-in/dtrend.shtml" target="_blank" rel="noopener">dtrend</a>, <a href="http://www.ncl.ucar.edu/Document/Functions/Built-in/dtrend_n.shtml" target="_blank" rel="noopener">dtrend_n</a>, <a href="http://www.ncl.ucar.edu/Document/Functions/Built-in/dtrend_n.shtml" target="_blank" rel="noopener">dtrend_msg_n</a></h2><p>&#8195;使用最小二乘法去除数据的线性趋势，其中最后一个允许数据中包含缺测值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. dtrend(y, return_info) - 对最右边一维去趋势</span><br><span class="line">2. dtrend_n(y, return_info, dim) - 对dim指定的维去趋势</span><br><span class="line">3. dtrend_msg_n(x, y, remove_mean, return_info, dim) - 同上一个，但允许缺测值</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dtrend(y, return_info) - 对最右边一维去趋势</span><br><span class="line">dtrend_n(y, return_info, dim) - 对dim指定的维去趋势</span><br><span class="line">dtrend_msg_n(x, y, remove_mean, return_info, dim) - 同上一个，但允许缺测值</span><br></pre></td></tr></table></figure>
 <p>&#8195;其中return_info如果设置为True，返回值就会包括两个attribute，一个是去掉的趋势slope，一个是我也不知道用来干嘛的y_intercept，均为一维序列，如果要用它俩画图需要先reshape一下。最后一个函数里的第一个参数x是y需要去趋势那一维的坐标信息，一般直接取y&amp;time(以时间维为例)即可。remove_mean正常情况下设为True。这系列函数都会保留坐标和atr信息，无需拷贝坐标信息。</p>
 <h2 id="mask"><a href="#mask" class="headerlink" title="mask"></a><a href="http://www.ncl.ucar.edu/Document/Functions/Built-in/mask.shtml" target="_blank" rel="noopener">mask</a></h2><p>&#8195;“保护”一个变量中符合给定条件的部分，而把其他都设为缺测值。</p>
 <p>&#8195;八百年搞不清楚的一个函数，每用一次都要查一次，常查常忘。此函数接收三个参数：</p>
@@ -117,7 +117,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckatpksob0001c8ky8xdd75kz" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckatppze900014okyffy0cc1n" class="article-share-link">
                                             分享
                                         </a>
                                         
