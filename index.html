@@ -142,7 +142,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckcohk6qr0001h4kyfxcienf5" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckcohou0p0001y4ky1be6dzk2" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -258,7 +258,75 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/24/Hexo%E5%92%8CVScode%E7%AC%94%E8%AE%B0/" data-id="ckcohk6qf0000h4kyaa229ore" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/24/Hexo%E5%92%8CVScode%E7%AC%94%E8%AE%B0/" data-id="ckcohou0k0000y4ky2vak3247" class="article-share-link">
+                                            分享
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-iPad-iOS设置webssh的tunnel功能" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/">iPad/iOS设置webssh APP的tunnel功能</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" class="article-date">
+  <time datetime="2019-07-08T07:19:21.000Z" itemprop="datePublished">2019-07-08</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tools/">tools</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>出差在外，需要访问单位内网的服务器（172.xxx.xxx.xxx），有相应账号密码一套，同时还有一台可以从外网接入的跳板机/堡垒机（159.xxx.xxx.xxx），另有账号密码一套。</p>
+<p>最简单的实现方法当然是ssh两次，但这样没法使用sftp功能，所以尝试设置常用的ssh APP - webssh的tunnel功能。但这个神奇的软件是一个德（?)国人个人开发的，官方的文档网站竟然404 no found，搜索引擎也是遍地搜不着这个软件的相关使用心得，只能自己琢磨着设置，好不容易最后成功了，设置如下</p>
+<p>原理如下图：tunnel的功能是从本地登陆跳板机159，并令本地起端口654映射到目标机器172的默认端口22. 启动tunnel后，再登陆本地起的端口，该端口已经被映射到了目标机器的默认端口，因此需要输入目标机器的账号密码。</p>
+<p><img src="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/ssh_tunnel%E5%8E%9F%E7%90%86.jpeg" alt></p>
+<p>tunnel设置如下</p>
+<p><img src="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/%E8%B7%B3%E6%9D%BF%E6%9C%BA%E8%AE%BE%E7%BD%AE.jpeg" alt>  </p>
+<p>ssh设置如下</p>
+<p><img src="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE.jpeg" alt></p>
+<p>P.S.在使用tunnel的情景下是可以直接使用sftp和scp的，但先登录跳板机再ssh到目标服务器的话，使用scp会把文件保存到跳板机的相应位置。使用tunnel的情况下，iPad可以通过App提供的sftp相关功能进行文件的上传下载，本地文件夹一般是app自己的目录下的文件夹，想要保存到文件的话需要自己去文件里把它抠出来。</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" data-id="ckcohou0r0002y4ky2mwnehic" class="article-share-link">
                                             分享
                                         </a>
                                         

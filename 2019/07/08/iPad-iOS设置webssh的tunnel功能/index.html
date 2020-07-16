@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    iPad/iOS设置webssh APP的tunnel功能 |
+    
+    Rika &amp; Pocky</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-iPad-iOS设置webssh的tunnel功能" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      iPad/iOS设置webssh APP的tunnel功能
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" class="article-date">
+  <time datetime="2019-07-08T07:19:21.000Z" itemprop="datePublished">2019-07-08</time>
+</a>
+                            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tools/">tools</a>
+  </div>
+
+                    </div>
+                    
+
+                        
+                            
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>出差在外，需要访问单位内网的服务器（172.xxx.xxx.xxx），有相应账号密码一套，同时还有一台可以从外网接入的跳板机/堡垒机（159.xxx.xxx.xxx），另有账号密码一套。</p>
+<p>最简单的实现方法当然是ssh两次，但这样没法使用sftp功能，所以尝试设置常用的ssh APP - webssh的tunnel功能。但这个神奇的软件是一个德（?)国人个人开发的，官方的文档网站竟然404 no found，搜索引擎也是遍地搜不着这个软件的相关使用心得，只能自己琢磨着设置，好不容易最后成功了，设置如下</p>
+<p>原理如下图：tunnel的功能是从本地登陆跳板机159，并令本地起端口654映射到目标机器172的默认端口22. 启动tunnel后，再登陆本地起的端口，该端口已经被映射到了目标机器的默认端口，因此需要输入目标机器的账号密码。</p>
+<p><img src="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/ssh_tunnel%E5%8E%9F%E7%90%86.jpeg" alt></p>
+<p>tunnel设置如下</p>
+<p><img src="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/%E8%B7%B3%E6%9D%BF%E6%9C%BA%E8%AE%BE%E7%BD%AE.jpeg" alt>  </p>
+<p>ssh设置如下</p>
+<p><img src="/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE.jpeg" alt></p>
+<p>P.S.在使用tunnel的情景下是可以直接使用sftp和scp的，但先登录跳板机再ssh到目标服务器的话，使用scp会把文件保存到跳板机的相应位置。使用tunnel的情况下，iPad可以通过App提供的sftp相关功能进行文件的上传下载，本地文件夹一般是app自己的目录下的文件夹，想要保存到文件的话需要自己去文件里把它抠出来。</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" data-id="ckcohou0r0002y4ky2mwnehic" class="article-share-link">
+                                            分享
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/05/24/Hexo%E5%92%8CVScode%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Hexo和VS Code笔记
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Rika &amp; Pocky</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Rika &amp; Pocky"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Note</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
