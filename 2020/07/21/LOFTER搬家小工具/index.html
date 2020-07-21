@@ -89,7 +89,7 @@
 </blockquote>
 <h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>这次鼓捣途中顺便搞了搞域名，之前的教程大多使用A类型记录，先ping一下Github再把得到的IP写进记录。0202了，实在不应该再用这种Github换一次ip就要失效一次的解析方式了。只需要添加两个CNAME记录，然后等解析生效就可以，@记录可以让你直接通过域名访问blog，www记录可以让你通过www.域名访问blog。</p>
 <p><img src="/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/%E8%A7%A3%E6%9E%90.png" alt></p>
-<p>Github仓库那边，只要在Setting里直接把custom domain改成你买的域名就行了</p>
+<p>Github仓库那边，只要在Setting里直接把custom domain改成你买的域名就行了。但hexo g后CNAME文件也会失效，所以需要更改样式，避免每次都要修改这一项。具体步骤在下一小节。</p>
 <h2 id="给自己整一个logo"><a href="#给自己整一个logo" class="headerlink" title="给自己整一个logo"></a>给自己整一个logo</h2><p>众所周知Safari有一个“添加到主屏幕”功能，如果能配上一个可爱的图标，那几乎就可以伪装成一个APP了。悲伤的是Safari在没有特殊设置的情况下，默认使用网页截图作为图标，我于是吭哧吭哧画了一只小松鼠，鼓捣了半天终于拥有了自己的logo：</p>
 <p><img src="/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/icon%E4%BD%BF%E7%94%A8%E5%9B%BE.jpg" alt></p>
 <p>实际使用中还有两种语句n种语法（参考<a href="https://blog.csdn.net/sinat_16493273/article/details/50624002?utm_source=blogxgwz0" target="_blank" rel="noopener">这里</a>和<a href="https://blog.csdn.net/lusonglin121/article/details/9341965/" target="_blank" rel="noopener">这里</a>），我的用法很简单，就是在index.html的head部分加上一句</p>
@@ -97,13 +97,13 @@
 <p>然后把’safari-icon.png’这张图往仓库一丢，过一会会就生效了！</p>
 <p>但是每次重新生成页面之后都要重复一遍以上操作又很麻烦，所以在把这篇文章发出去之后，我躺在床上不死心地搜了搜，发现我应该改的是样板，也就是theme的文件！于是把上一行加在了这个文件里，添加favicon的下一行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">E:\hexo\hexo\themes\ocean\layout\_partial\head.ejs</span><br><span class="line"></span><br><span class="line">  &lt;% if (theme.favicon)&#123; %&gt;</span><br><span class="line">    &lt;link rel&#x3D;&quot;shortcut icon&quot; href&#x3D;&quot;&lt;%- theme.favicon %&gt;&quot;&gt;</span><br><span class="line">    &lt;link rel&#x3D;&quot;apple-touch-icon-precomposed&quot; href&#x3D;&quot;safari-icon.png&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>然后把icon和favicon.ico这个文件放在同一个文件夹里（theme下），测试了一下，成功！</p>
+<p>然后把icon和favicon.ico这个文件放在同一个文件夹里（theme下source里），<strong>顺便把CNAME文件也放进去以避免每次都要重新解析</strong>，测试了一下，成功！</p>
 <p>p.s.不知道尺寸有没有限制，我用的是144*144的位图，还是挺清楚的</p>
 
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" data-id="ckcw5khz60001hwkyblsgaohg" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" data-id="ckcw5rb7g0004dsky4vp80c7t" class="article-share-link">
                                             分享
                                         </a>
                                         
