@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    LOFTER搬家小工具 |
+    
+    Rika &amp; Pocky</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="2020-07-21-LOFTER搬家小工具" class="article article-type-2020-07-21" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      LOFTER搬家小工具
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="article-date">
+  <time datetime="2020-07-21T15:01:03.000Z" itemprop="datePublished">2020-07-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>LOF事件一发不可收拾，下定决心搬家了。</p>
+<p>过程其实很简单，简单介绍一下步骤，万一还有别人要搬家呢2333</p>
+<hr>
+<h1 id="搬家主要步骤"><a href="#搬家主要步骤" class="headerlink" title="搬家主要步骤"></a>搬家主要步骤</h1><p>1.登录LOFTER，在首页标题栏【更多】-&gt;【导入导出】，将博客导出为xml文件（长文章会被略过）</p>
+<p><img src="/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/lof%E5%AF%BC%E5%87%BA1.png" alt></p>
+<p>2.使用<a href="https://www.npmjs.com/package/lofter2hexo" target="_blank" rel="noopener">LOFTER2Hexo</a>工具，将xml切分为适用于Hexo的Markdown格式，图片会被自动下载并上传到(大概是CSDN的)图床。不熟悉代码的盆友可以试试另外一个姐妹写的<a href="https://github.com/alicewish/Lofter2Hexo" target="_blank" rel="noopener">Lofter2Hexo</a>，好处是有图形界面，问题是有图形界面我反而搞不懂了…该工具还在更新维护中!</p>
+<p>3.打开powershell，hexo new新建文档，把转换好的Markdown文件复制过来稍加修改，完成！</p>
+<hr>
+<h1 id="一些小细节"><a href="#一些小细节" class="headerlink" title="一些小细节"></a>一些小细节</h1><h2 id="图片资源管理"><a href="#图片资源管理" class="headerlink" title="图片资源管理"></a>图片资源管理</h2><p>分割好的Markdown文件里包含的图片链接都是重新上传的网络图床链接，但是因为个人习惯的原因，我还是用了本地保存下来的图片，通过<a href="https://hexo.io/zh-cn/docs/asset-folders" target="_blank" rel="noopener">文章资源文件夹</a>的方式进行管理。这个页面还同时给出了正确引用图片的方式。</p>
+<blockquote>
+<p>对于那些想要更有规律地提供图片和其他资源以及想要将他们的资源分布在各个文章上的人来说，Hexo也提供了更组织化的方式来管理资源。这个稍微有些复杂但是管理资源非常方便的功能可以通过将 config.yml 文件中的 post_asset_folder 选项设为 true 来打开。<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_config.yml</span><br><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure><br>当资源文件管理功能打开后，Hexo将会在你每一次通过 hexo new 命令创建新文章时自动创建一个文件夹。这个资源文件夹将会有与这个文章文件一样的名字。将所有与你的文章有关的资源放在这个关联文件夹中之后，你可以通过相对路径来引用它们，这样你就得到了一个更简单而且方便得多的工作流。</p>
+</blockquote>
+<h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>这次鼓捣途中顺便搞了搞域名，之前的教程大多使用A类型记录，先ping一下Github再把得到的IP写进记录。0202了，实在不应该再用这种Github换一次ip就要失效一次的解析方式了。只需要添加两个CNAME记录，然后等解析生效就可以，@记录可以让你直接通过域名访问blog，www记录可以让你通过www.域名访问blog。</p>
+<p><img src="/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/%E8%A7%A3%E6%9E%90.png" alt></p>
+<p>Github仓库那边，只要在Setting里直接把custom domain改成你买的域名就行了</p>
+<h2 id="给自己整一个logo"><a href="#给自己整一个logo" class="headerlink" title="给自己整一个logo"></a>给自己整一个logo</h2><p>众所周知Safari有一个“添加到主屏幕”功能，如果能配上一个可爱的图标，那几乎就可以伪装成一个APP了。悲伤的是Safari在没有特殊设置的情况下，默认使用网页截图作为图标，我于是吭哧吭哧画了一只小松鼠，鼓捣了半天终于拥有了自己的logo：</p>
+<p><img src="/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/icon%E4%BD%BF%E7%94%A8%E5%9B%BE.png" alt></p>
+<p>实际使用中还有两种语句n种语法（参考<a href="https://blog.csdn.net/sinat_16493273/article/details/50624002?utm_source=blogxgwz0" target="_blank" rel="noopener">这里</a>和<a href="https://blog.csdn.net/lusonglin121/article/details/9341965/" target="_blank" rel="noopener">这里</a>），我的用法很简单，就是在index.html的head部分加上一句</p>
+<p>‘’’</p>
+<link rel="apple-touch-icon-precomposed" href="safari-icon.png">
+'''
+然后把'safari-icon.png'这张图往仓库一丢，过一会会就生效了！
+
+<p>p.s.不知道尺寸有没有限制，我用的是144*144的位图，还是挺清楚的</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" data-id="ckcw3utsl0001k4kyanxjb2r3" class="article-share-link">
+                                            分享
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">五月最后一周的NCL笔记</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Rika &amp; Pocky</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Rika &amp; Pocky"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Note</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
