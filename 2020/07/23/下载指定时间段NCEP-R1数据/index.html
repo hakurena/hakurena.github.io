@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    下载指定时间段NCEP-R1数据 |
+    
+    Rika &amp; Pocky</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="safari-icon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="2020-07-23-下载指定时间段NCEP-R1数据" class="article article-type-2020-07-23" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      下载指定时间段NCEP-R1数据
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time datetime="2020-07-23T10:50:17.000Z" itemprop="datePublished">2020-07-23</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>这篇文章一开始写在2019年6月19日，今天（勉强）实现当时扑街了的python做法，修整一下补个档！</p>
+<p><strong>文件存放在GitHub</strong>：仓库地址<a href="https://github.com/hakurena/aya-s-daily" target="_blank" rel="noopener">戳我</a></p>
+<hr>
+<h1 id="Bash脚本实现"><a href="#Bash脚本实现" class="headerlink" title="Bash脚本实现"></a>Bash脚本实现</h1><p>os模块相关：<a href="https://www.jb51.net/article/141877.htm" target="_blank" rel="noopener">链接</a></p>
+<p>os模块下的基本文件查询等：<a href="https://www.cnblogs.com/VseYoung/p/9941873.html" target="_blank" rel="noopener">链接</a></p>
+<p>wget的用法：<a href="https://www.cnblogs.com/semonxv/p/3816366.html" target="_blank" rel="noopener">linux wget 命令用法详解(附实例说明)</a></p>
+<p>NCEP/NCAR Reanalysis 1：<a href="https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.pressure.html" target="_blank" rel="noopener">按pressure分层</a>  </p>
+<p><a href="https://www.cnblogs.com/DreamDrive/p/7706585.html" target="_blank" rel="noopener">Shell中判断文件,目录是否存在</a>  </p>
+<p><img src="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/shell%E6%96%87%E4%BB%B6%E5%88%A4%E6%96%AD.png" alt>  </p>
+<hr>
+<p>好的以上内容都是为了写一个【自动下载数据】的脚本</p>
+<p><strong>脚本主要功能</strong>是下载指定时间段、指定变量数据，并按变量分类存放</p>
+<p>仅下载指定时间主要是为了方便使用cdo</p>
+<p>（所以也可以在脚本最后直接加上cdo指令）</p>
+<p><strong>脚本主要问题</strong>是不会检测已存在的文件下载是否完整。脚本运行期间文件的完整性会由wget的断点续传保证，但如果脚本运行中断，下一次运行前需要手动检查上次的最后一个文件是否被完整下载，若没有完整下好，建议删掉最后一个文件后再重新运行脚本。</p>
+<p>当然我是把它提交到服务器后台去运行，不需要担心这种情况了哈哈哈哈哈哈</p>
+<p>脚本如下！</p>
+<p><img src="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/bash.png" alt="00_download_ncep1.sh">  </p>
+<hr>
+<h1 id="Python脚本实现（2020-update）"><a href="#Python脚本实现（2020-update）" class="headerlink" title="Python脚本实现（2020 update）"></a>Python脚本实现（2020 update）</h1><p>因为NCEP这个数据是存储在一个ftp服务器上的，所以使用了ftplib来做这个下载。</p>
+<p>服务器是匿名登陆的，主要目的也是实现只下载指定期间的数据并按变量存放。但是对于偶尔也会出现的“同一个目录下放了同一种变量的两种数据”的情况，暂时还没有考虑，也暂时不会检查文件是否已经存在or是否完整。另外还想过要增加进度条，目前还没整明白怎么搞。</p>
+<p>参考文档：</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/ftplib.html" target="_blank" rel="noopener">ftplib文档</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/library/re.html" target="_blank" rel="noopener">re 正则表达式</a></li>
+<li><a href="https://www.jb51.net/article/62820.htm" target="_blank" rel="noopener">使用python实现正则匹配检索远端FTP目录下的文件</a></li>
+</ul>
+<p>没参考得上的文档：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/xiao-apple36/p/9675185.html#_label2" target="_blank" rel="noopener">python ftplib模块使用</a></li>
+<li><a href="https://www.jianshu.com/p/6a87da499bd7" target="_blank" rel="noopener">python模块之ftplib</a></li>
+</ul>
+<p><img src="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/python.png" alt="00_download_ncep1.py"></p>
+<p>本来是想传代码上来的，但是还没搞明白怎么用highlight.js做高亮，万一高亮太丑那还不如不高亮了哈哈哈哈哈！等搞明白再来更新！</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/" data-id="ckcyqfyoa0003b0ky4ahx53ix" class="article-share-link">
+                                            分享
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">LOFTER搬家小工具</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Rika &amp; Pocky</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Rika &amp; Pocky"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Note</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

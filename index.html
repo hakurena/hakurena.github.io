@@ -63,6 +63,95 @@
       <h1 class="page-type-title"></h1>
       
         
+          <article id="2020-07-23-下载指定时间段NCEP-R1数据" class="article article-type-2020-07-23" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/">下载指定时间段NCEP-R1数据</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time datetime="2020-07-23T10:50:17.000Z" itemprop="datePublished">2020-07-23</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>这篇文章一开始写在2019年6月19日，今天（勉强）实现当时扑街了的python做法，修整一下补个档！</p>
+<p><strong>文件存放在GitHub</strong>：仓库地址<a href="https://github.com/hakurena/aya-s-daily" target="_blank" rel="noopener">戳我</a></p>
+<hr>
+<h1 id="Bash脚本实现"><a href="#Bash脚本实现" class="headerlink" title="Bash脚本实现"></a>Bash脚本实现</h1><p>os模块相关：<a href="https://www.jb51.net/article/141877.htm" target="_blank" rel="noopener">链接</a></p>
+<p>os模块下的基本文件查询等：<a href="https://www.cnblogs.com/VseYoung/p/9941873.html" target="_blank" rel="noopener">链接</a></p>
+<p>wget的用法：<a href="https://www.cnblogs.com/semonxv/p/3816366.html" target="_blank" rel="noopener">linux wget 命令用法详解(附实例说明)</a></p>
+<p>NCEP/NCAR Reanalysis 1：<a href="https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.pressure.html" target="_blank" rel="noopener">按pressure分层</a>  </p>
+<p><a href="https://www.cnblogs.com/DreamDrive/p/7706585.html" target="_blank" rel="noopener">Shell中判断文件,目录是否存在</a>  </p>
+<p><img src="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/shell%E6%96%87%E4%BB%B6%E5%88%A4%E6%96%AD.png" alt>  </p>
+<hr>
+<p>好的以上内容都是为了写一个【自动下载数据】的脚本</p>
+<p><strong>脚本主要功能</strong>是下载指定时间段、指定变量数据，并按变量分类存放</p>
+<p>仅下载指定时间主要是为了方便使用cdo</p>
+<p>（所以也可以在脚本最后直接加上cdo指令）</p>
+<p><strong>脚本主要问题</strong>是不会检测已存在的文件下载是否完整。脚本运行期间文件的完整性会由wget的断点续传保证，但如果脚本运行中断，下一次运行前需要手动检查上次的最后一个文件是否被完整下载，若没有完整下好，建议删掉最后一个文件后再重新运行脚本。</p>
+<p>当然我是把它提交到服务器后台去运行，不需要担心这种情况了哈哈哈哈哈哈</p>
+<p>脚本如下！</p>
+<p><img src="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/bash.png" alt="00_download_ncep1.sh">  </p>
+<hr>
+<h1 id="Python脚本实现（2020-update）"><a href="#Python脚本实现（2020-update）" class="headerlink" title="Python脚本实现（2020 update）"></a>Python脚本实现（2020 update）</h1><p>因为NCEP这个数据是存储在一个ftp服务器上的，所以使用了ftplib来做这个下载。</p>
+<p>服务器是匿名登陆的，主要目的也是实现只下载指定期间的数据并按变量存放。但是对于偶尔也会出现的“同一个目录下放了同一种变量的两种数据”的情况，暂时还没有考虑，也暂时不会检查文件是否已经存在or是否完整。另外还想过要增加进度条，目前还没整明白怎么搞。</p>
+<p>参考文档：</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/ftplib.html" target="_blank" rel="noopener">ftplib文档</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/library/re.html" target="_blank" rel="noopener">re 正则表达式</a></li>
+<li><a href="https://www.jb51.net/article/62820.htm" target="_blank" rel="noopener">使用python实现正则匹配检索远端FTP目录下的文件</a></li>
+</ul>
+<p>没参考得上的文档：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/xiao-apple36/p/9675185.html#_label2" target="_blank" rel="noopener">python ftplib模块使用</a></li>
+<li><a href="https://www.jianshu.com/p/6a87da499bd7" target="_blank" rel="noopener">python模块之ftplib</a></li>
+</ul>
+<p><img src="/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/python.png" alt="00_download_ncep1.py"></p>
+<p>本来是想传代码上来的，但是还没搞明白怎么用highlight.js做高亮，万一高亮太丑那还不如不高亮了哈哈哈哈哈！等搞明白再来更新！</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/" data-id="ckcyqfyoa0003b0ky4ahx53ix" class="article-share-link">
+                                            分享
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
           <article id="2020-07-21-LOFTER搬家小工具" class="article article-type-2020-07-21" itemscope itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
@@ -128,7 +217,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" data-id="ckcw5rb7g0004dsky4vp80c7t" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" data-id="ckcyqfyo70001b0kybctmb1it" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -222,7 +311,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckcw5rb790002dskyfkic5s3t" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckcyqfyoh0005b0kyghdz4y9j" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -338,7 +427,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/24/Hexo%E5%92%8CVScode%E7%AC%94%E8%AE%B0/" data-id="ckcw5rb720000dskyamgw61q4" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/24/Hexo%E5%92%8CVScode%E7%AC%94%E8%AE%B0/" data-id="ckcyqfyo20000b0ky1mop845e" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -406,7 +495,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" data-id="ckcw5rb770001dsky0f0c3rpn" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" data-id="ckcyqfyo90002b0ky5oow15ab" class="article-share-link">
                                             分享
                                         </a>
                                         
