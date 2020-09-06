@@ -63,6 +63,106 @@
       <h1 class="page-type-title"></h1>
       
         
+          <article id="2020-09-06-ftplib下载JRA-55逐日数据" class="article article-type-2020-09-06" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/">ftplib下载JRA-55逐日数据</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/" class="article-date">
+  <time datetime="2020-09-06T16:00:35.000Z" itemprop="datePublished">2020-09-07</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <h1 id="关于JRA55-Daily资料"><a href="#关于JRA55-Daily资料" class="headerlink" title="关于JRA55-Daily资料"></a>关于JRA55-Daily资料</h1><p>丑话说在前头：<strong>我从未见过如此傻逼的再分析资料！！！</strong></p>
+<p>之前我用NCEP的再分析资料比较多，基本是按层次分类，逐月变量一个变量一个文件，逐日变量一年一个文件。ERA那就不说了，鼠标咔咔一通点人自动给你生成下载脚本，拖下来直接跑上就万事大吉。JRA55就不一样了，打开说明文档的一瞬间我就感到大事不妙：它的变量是一组一组存放的，并且命名方式也与我熟悉的规则相去甚远，更不用说官方页面上写了巨大的“<strong>由于服务器压力过大，建议大家下一个小时歇一个小时，并每十二小时登出一次以免服务器崩溃</strong>”……</p>
+<p>以上都是序曲，当真正打开JRA服务器的时候我才感觉到了什么叫两眼一黑：</p>
+<p>JRA55逐日资料的存储逻辑是这样的：打开FTP服务器，首先看到的是data01~data20一共20个文件夹，外加一个叫JRA55的文件夹</p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/JRA%E6%9C%8D%E5%8A%A1%E5%99%A8.PNG" alt="JRA服务器"></p>
+<p>点进这个文件夹，再点进Hist，就可以看到不同时次的数据各自的目录。<strong>注意：这三个目录都是链接，并不是真实的绝对路径。</strong></p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/JRA55-daily.PNG" alt="JRA55-daily"></p>
+<p>点进Daily后进入了逐日数据的子目录，此时链接已经把我带到了<strong>data19</strong>这个文件夹（。到这里还没有结束，我准备先下载高度场数据，于是点进了anl_p125文件夹。在等待了漫长的5分钟后，终于加载出了文件夹下的全部内容：每年每月一个文件夹，足足700多个软链接……</p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/yyyymm.PNG" alt="yyyymm"></p>
+<p>更不要说每个链接底下都是混着放的一大堆变量，而每个变量又都是每天4个时次各一个文件，而且还是GRIB格式，下载的时候需要记得顺带捎上它们的说明文件。第一天我写完下载脚本美滋滋地挂上就回去了，第二天回来一看，好家伙才下了一年就找不到路径了，再仔细一看原来是<strong>新的一年他换了一个data文件夹存！</strong>而且如果你以为“换一个文件夹”等价于“data文件夹序号+1”那就太天真了，你的逻辑说了不算，目录安排的顺序说了才算，具体的大家自己看看就知道了，实在无力吐槽。</p>
+<p>此时经历了n次下载失败的我已经完全抓狂，只想说<strong>JRA你自己不会搞就外包出去啊！！整理一下会死吗！！！！</strong></p>
+<h1 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h1><p>综上所述，脚本需要实现这样的功能：</p>
+<ol>
+<li>进入Daily数据的总目录，并根据目录下给出的每个月的yyyymm文件夹链接，获取每个月的实际存储路径。</li>
+<li>进入yyyymm文件夹，挑选出需要的变量对应的文件名。</li>
+<li>由于获取到的文件名排列也是混乱的，为了确认下载进度，对其根据时次进行排序。</li>
+<li>每个文件下载前，若本地已存在对应文件，还需检查文件完整性。</li>
+</ol>
+<h1 id="使用到的包"><a href="#使用到的包" class="headerlink" title="使用到的包"></a>使用到的包</h1><h2 id="re-正则表达式"><a href="#re-正则表达式" class="headerlink" title="re - 正则表达式"></a>re - 正则表达式</h2><p>官方文档<a href="https://docs.python.org/3/library/re.html#re.search" target="_blank" rel="noopener">点我</a>,主要用到了两个函数：</p>
+<ol>
+<li>re.match - 匹配文件开头，用于挑选需要的变量</li>
+<li>re.search - 提取文件末尾的时次信息用于排序</li>
+</ol>
+<p>正则表达式是怎么也绕不开的一个常用包，不过我用得还不是很顺溜，有机会再去慢慢研究。</p>
+<h2 id="os-文件-目录方法"><a href="#os-文件-目录方法" class="headerlink" title="os- 文件/目录方法"></a>os- 文件/目录方法</h2><p>中文文档<a href="https://docs.python.org/zh-cn/3/library/os.html" target="_blank" rel="noopener">点我</a>，英文文档<a href="https://docs.python.org/3/library/os.html" target="_blank" rel="noopener">点我</a>，菜鸟教程<a href="https://www.runoob.com/python3/python3-os-file-methods.html" target="_blank" rel="noopener">点我</a></p>
+<p>操作本地文件目录，切换文件夹（os.chdir），查询文件大小（os.path.getsize），拼接路径（os.path.join）等。</p>
+<h2 id="ftplib-ftp协议客户端"><a href="#ftplib-ftp协议客户端" class="headerlink" title="ftplib - ftp协议客户端"></a>ftplib - ftp协议客户端</h2><p>重头戏来了，在这之前我都不知道FTP服务器具体都有哪些指令，为了下这个数据把这个包里所有函数都仔仔细细看了一遍，自己整理了一个表,另外还有一些补充说明，放在文章末尾。</p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/ftplib.png" alt="ftplib"></p>
+<h2 id="pandas-amp-datetime-时间与日期"><a href="#pandas-amp-datetime-时间与日期" class="headerlink" title="pandas &amp; datetime - 时间与日期"></a>pandas &amp; datetime - 时间与日期</h2><p>网上查了查怎么生成指定时间段内yyyymm的列表，结果发现好些都是写的循环一个一个加出来的，实在是太不优雅（。所以引入了pandas，用一下它的date_range函数。也许其它的包也能实现，不过鉴于我只学了一个pandas，就先有啥用啥啦！</p>
+<h1 id="实际脚本"><a href="#实际脚本" class="headerlink" title="实际脚本"></a>实际脚本</h1><p>脚本存放在<a href="https://github.com/hakurena/aya-s-daily/blob/master/00_download_jra55_daily_example.py" target="_blank" rel="noopener">Github</a>，鉴于我还是没搞懂代码高亮怎么整，今天也还是上图。（polacode这个插件真的不错子！</p>
+<p>这里本地文件是以wb方式打开，所以如果下载不完全是会直接覆盖本地文件 重新下载。如果单个文件较大的话可以考虑酌情修改。</p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/sftp_py_v2.0.png" alt="sftp_py_v2.0"></p>
+<p>使用效果：</p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/%E5%AE%9E%E6%93%8D.PNG" alt="实操"></p>
+<h1 id="ftp补充说明"><a href="#ftp补充说明" class="headerlink" title="ftp补充说明"></a>ftp补充说明</h1><p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/ftp-MLSD.PNG" alt="ftp-MLSD"></p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/ftp%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F.PNG" alt="ftp工作模式"></p>
+<p><img src="/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/ftp%E6%8C%87%E4%BB%A4.png" alt="ftp指令"></p>
+<h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><p>回来面对半年没见的台式机还有点陌生，重要的是我竟然忘了把wsl映射为网络驱动器是怎么整的了。直接把绝对路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\User\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu16.04onWindows_79rhkp1fndgsc\LocalState\rootfs</span><br></pre></td></tr></table></figure>
+
+<p>按照规则改写一下输进映射网络驱动器会报错，后来发现是因为…这是本机地址不算在网络驱动器里【。</p>
+<p>正确的操作应该是添加以下地址为网络驱动器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\wsl$\Ubuntu-16.04</span><br></pre></td></tr></table></figure>
+
+<p>小盆友，你学废了吗？？？</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/09/07/ftplib%E4%B8%8B%E8%BD%BDJRA-55%E9%80%90%E6%97%A5%E6%95%B0%E6%8D%AE/" data-id="ckerak5r70003n0kyehw60swv" class="article-share-link">
+                                            分享
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
           <article id="2020-07-23-下载指定时间段NCEP-R1数据" class="article article-type-2020-07-23" itemscope itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
@@ -138,7 +238,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/" data-id="ckcyqfyoa0003b0ky4ahx53ix" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/07/23/%E4%B8%8B%E8%BD%BD%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5NCEP-R1%E6%95%B0%E6%8D%AE/" data-id="ckerak5rb0005n0ky6rg8athr" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -217,7 +317,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" data-id="ckcyqfyo70001b0kybctmb1it" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/07/21/LOFTER%E6%90%AC%E5%AE%B6%E5%B0%8F%E5%B7%A5%E5%85%B7/" data-id="ckerak5r50001n0kyb62a8blu" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -311,7 +411,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckcyqfyoh0005b0kyghdz4y9j" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/30/%E4%BA%94%E6%9C%88%E6%9C%80%E5%90%8E%E4%B8%80%E5%91%A8%E7%9A%84NCL%E7%AC%94%E8%AE%B0/" data-id="ckerak5re0006n0ky5nxs7yuy" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -427,7 +527,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/05/24/Hexo%E5%92%8CVScode%E7%AC%94%E8%AE%B0/" data-id="ckcyqfyo20000b0ky1mop845e" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/24/Hexo%E5%92%8CVScode%E7%AC%94%E8%AE%B0/" data-id="ckerak5qu0000n0ky1xkpgvrf" class="article-share-link">
                                             分享
                                         </a>
                                         
@@ -495,7 +595,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" data-id="ckcyqfyo90002b0ky5oow15ab" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2019/07/08/iPad-iOS%E8%AE%BE%E7%BD%AEwebssh%E7%9A%84tunnel%E5%8A%9F%E8%83%BD/" data-id="ckerak5r60002n0kyd9iz8rng" class="article-share-link">
                                             分享
                                         </a>
                                         
