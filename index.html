@@ -107,10 +107,13 @@
 <h2 id="无法将“XXX”项识别为-cmdlet、函数、脚本文件或可运行程序的名称。"><a href="#无法将“XXX”项识别为-cmdlet、函数、脚本文件或可运行程序的名称。" class="headerlink" title="无法将“XXX”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。"></a>无法将“XXX”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。</h2><p>碰到的每个win本都会犯的一个神奇毛病，解决方案是打开控制面板搜索“高级系统设置”，在里面把system32文件夹加到Path里。其实系统变量里已经有了，但是在用户变量里再添加一次神奇地解决了问题，虽然不知道为什么但能用就好…</p>
 <h2 id="在markdown中使用emoji"><a href="#在markdown中使用emoji" class="headerlink" title="在markdown中使用emoji"></a>在markdown中使用emoji</h2><p>再也没有什么可以阻拦我在blog里添加表情包了！在两个冒号中间加入对应的表情代码就可以，表情代码列表参见<a href="https://blog.csdn.net/qq_35892287/article/details/121919710" target="_blank" rel="noopener">《Markdown 使用 Emoji 表情_markdown表情_三年不回来的博客-CSDN博客》</a></p>
 <p>（让我来试一试:flushed:</p>
-<h1 id="Ubuntu从安装到使用备忘录"><a href="#Ubuntu从安装到使用备忘录" class="headerlink" title="Ubuntu从安装到使用备忘录"></a>Ubuntu从安装到使用备忘录</h1><h2 id="安装Ubuntu-22-04-01-jammy-jellyfish"><a href="#安装Ubuntu-22-04-01-jammy-jellyfish" class="headerlink" title="安装Ubuntu 22.04.01 jammy jellyfish"></a>安装Ubuntu 22.04.01 jammy jellyfish</h2><p>1、创建系统盘：不要用UltraISO，用rufus，可选择免安装版本</p>
-<p>2、安装时：hp按esc进入BIOS，如果在boot选项里找不到U盘，关机重新拔插启动盘后重启，不要尝试boot from file（虽然这个选项中可以识别到系统盘）</p>
-<p>3、网络：公司网络使用PEAP认证，直接输入账号密码是无法保存设置的，因为PEAP默认先检测CA证书，勾选不检查CA证书后可正常连接；否则会重复提示确认/输入账号密码，这是由于系统在反复检查CA证书导致的的</p>
-<p>4、换源：更换阿里源，官网有教程，但要注意修改代号。官网给出的20.04 LTS源对应的Codename是20.04.4的focal，我安装的是20.04.1的jammy jellyfish，不同版本ubuntu使用的软件源是不一致的，故而在安装各种包的时候持续报错“无法修正错误，因为您要求某些软件包保持现状，就是他们破坏了软件包间的依赖关系”。</p>
+<h1 id="Ubuntu从安装到使用备忘录"><a href="#Ubuntu从安装到使用备忘录" class="headerlink" title="Ubuntu从安装到使用备忘录"></a>Ubuntu从安装到使用备忘录</h1><p>修完了笔记本现在轮到修服务器了，公司给配了一台年纪不小配置不低的工作站，拾掇拾掇也可以跑两个小模型。系统太过老旧，只能从头安装，百废待兴。</p>
+<h2 id="安装Ubuntu-22-04-01-jammy-jellyfish"><a href="#安装Ubuntu-22-04-01-jammy-jellyfish" class="headerlink" title="安装Ubuntu 22.04.01 jammy jellyfish"></a>安装Ubuntu 22.04.01 jammy jellyfish</h2><ol>
+<li>创建系统盘：不要用UltraISO，用rufus，可选择免安装版本</li>
+<li>安装时：hp按esc进入BIOS，如果在boot选项里找不到U盘，关机重新拔插启动盘后重启，不要尝试boot from file（虽然这个选项中可以识别到系统盘）</li>
+<li>网络：公司网络使用PEAP认证，直接输入账号密码是无法保存设置的，因为PEAP默认先检测CA证书，勾选不检查CA证书后可正常连接；否则会重复提示确认/输入账号密码，这是由于系统在反复检查CA证书导致的的</li>
+<li>换源：更换阿里源，官网有教程，但要注意修改代号。官网给出的20.04 LTS源对应的Codename是20.04.4的focal，我安装的是20.04.1的jammy jellyfish，不同版本ubuntu使用的软件源是不一致的，故而在安装各种包的时候持续报错“无法修正错误，因为您要求某些软件包保持现状，就是他们破坏了软件包间的依赖关系”。</li>
+</ol>
 <p><a href="https://www.cnblogs.com/isakovsky/p/16116565.html" target="_blank" rel="noopener">Ubuntu出现”E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。”的正确解决姿势</a></p>
 <p>Codename可通过lsb_release -a指令查看。修改源（/etc/apt/sources.list）前记得进行备份，以防万一需要回滚。</p>
 <h2 id="安装ENVD"><a href="#安装ENVD" class="headerlink" title="安装ENVD"></a>安装ENVD</h2><h3 id="首先安装docker"><a href="#首先安装docker" class="headerlink" title="首先安装docker"></a>首先安装docker</h3><p><a href="https://blog.csdn.net/BThinker/article/details/123358697" target="_blank" rel="noopener">Docker 安装 (完整详细版)</a></p>
