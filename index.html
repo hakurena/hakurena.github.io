@@ -63,7 +63,109 @@
       <h1 class="page-type-title"></h1>
       
         
-          <article id="2020-09-06-ftplib下载JRA-55逐日数据" class="article article-type-2020-09-06" itemscope itemprop="blogPost" data-scroll-reveal>
+          <article id="post-打工日记001" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2023/09/06/%E6%89%93%E5%B7%A5%E6%97%A5%E8%AE%B0001/">2023-09-06-打工日记001.md</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2023/09/06/%E6%89%93%E5%B7%A5%E6%97%A5%E8%AE%B0001/" class="article-date">
+  <time datetime="2023-09-06T08:10:10.000Z" itemprop="datePublished">2023-09-06</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>掐指一算，上一次更新已经是三年前的事情了，在这三年的时间里，我完成了开题、中期、毕业答辩，求职、入职、开始打工，当然也<strong>白交了两年域名费用</strong>并且<strong>把markdown和Hexo的语法忘了个精光</strong>😅本着花出去的时间和钱绝不能浪费的原则，终于下定决心爬起来更新了！主要内容是打工过程中学到的一些或热或冷的零碎知识，希望未来一年里能把打工日记里的碎片慢慢都整理出来…</p>
+<h1 id="win本的一些小毛病"><a href="#win本的一些小毛病" class="headerlink" title="win本的一些小毛病"></a>win本的一些小毛病</h1><p>打开电脑的第一感觉就是一段时间不用有点不顺手了，先把边边角角的毛病修补一下。</p>
+<h2 id="更新git版本"><a href="#更新git版本" class="headerlink" title="更新git版本"></a>更新git版本</h2><p>打开blog的文件夹，首先就发现git版本已经一个世纪没有更新了，被VScode警告要么更新要么滚（。首先查看当前git版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line"></span><br><span class="line"># 2.17.1以上版本执行</span><br><span class="line">git update-git-for-windows</span><br><span class="line"># 2.17.1以下版本执行</span><br><span class="line">git update</span><br></pre></td></tr></table></figure>
+<h2 id="无法将“XXX”项识别为-cmdlet、函数、脚本文件或可运行程序的名称。"><a href="#无法将“XXX”项识别为-cmdlet、函数、脚本文件或可运行程序的名称。" class="headerlink" title="无法将“XXX”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。"></a>无法将“XXX”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。</h2><p>碰到的每个win本都会犯的一个神奇毛病，解决方案是打开控制面板搜索“高级系统设置”，在里面把system32文件夹加到Path里。其实系统变量里已经有了，但是在用户变量里再添加一次神奇地解决了问题，虽然不知道为什么但能用就好…</p>
+<h2 id="在markdown中使用emoji"><a href="#在markdown中使用emoji" class="headerlink" title="在markdown中使用emoji"></a>在markdown中使用emoji</h2><p>再也没有什么可以阻拦我在blog里添加表情包了！在两个冒号中间加入对应的表情代码就可以，表情代码列表参见<a href="https://blog.csdn.net/qq_35892287/article/details/121919710" target="_blank" rel="noopener">《Markdown 使用 Emoji 表情_markdown表情_三年不回来的博客-CSDN博客》</a></p>
+<p>（让我来试一试:flushed:</p>
+<h1 id="Ubuntu从安装到使用备忘录"><a href="#Ubuntu从安装到使用备忘录" class="headerlink" title="Ubuntu从安装到使用备忘录"></a>Ubuntu从安装到使用备忘录</h1><h2 id="安装Ubuntu-22-04-01-jammy-jellyfish"><a href="#安装Ubuntu-22-04-01-jammy-jellyfish" class="headerlink" title="安装Ubuntu 22.04.01 jammy jellyfish"></a>安装Ubuntu 22.04.01 jammy jellyfish</h2><p>1、创建系统盘：不要用UltraISO，用rufus，可选择免安装版本</p>
+<p>2、安装时：hp按esc进入BIOS，如果在boot选项里找不到U盘，关机重新拔插启动盘后重启，不要尝试boot from file（虽然这个选项中可以识别到系统盘）</p>
+<p>3、网络：公司网络使用PEAP认证，直接输入账号密码是无法保存设置的，因为PEAP默认先检测CA证书，勾选不检查CA证书后可正常连接；否则会重复提示确认/输入账号密码，这是由于系统在反复检查CA证书导致的的</p>
+<p>4、换源：更换阿里源，官网有教程，但要注意修改代号。官网给出的20.04 LTS源对应的Codename是20.04.4的focal，我安装的是20.04.1的jammy jellyfish，不同版本ubuntu使用的软件源是不一致的，故而在安装各种包的时候持续报错“无法修正错误，因为您要求某些软件包保持现状，就是他们破坏了软件包间的依赖关系”。</p>
+<p><a href="https://www.cnblogs.com/isakovsky/p/16116565.html" target="_blank" rel="noopener">Ubuntu出现”E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。”的正确解决姿势</a></p>
+<p>Codename可通过lsb_release -a指令查看。修改源（/etc/apt/sources.list）前记得进行备份，以防万一需要回滚。</p>
+<h2 id="安装ENVD"><a href="#安装ENVD" class="headerlink" title="安装ENVD"></a>安装ENVD</h2><h3 id="首先安装docker"><a href="#首先安装docker" class="headerlink" title="首先安装docker"></a>首先安装docker</h3><p><a href="https://blog.csdn.net/BThinker/article/details/123358697" target="_blank" rel="noopener">Docker 安装 (完整详细版)</a></p>
+<ol>
+<li>注意安装deb前要完成Prerequisites，<a href="https://docs.docker.com/desktop/install/ubuntu/" target="_blank" rel="noopener">https://docs.docker.com/desktop/install/ubuntu/</a> 这个链接中的第一部分，以及<a href="https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository" target="_blank" rel="noopener">https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository</a> 中的set repository</li>
+<li>这里docker run hello-world时报错daemon连接超时，是因为找不到/etc/docker/daemon.json（也有可能是因为国外源速度太慢），需要创建该文件，顺便换成国内源：</li>
+</ol>
+<p><a href="https://blog.csdn.net/gengkui9897/article/details/127348289" target="_blank" rel="noopener">Docker配置国内镜像源_柚子君.的博客-CSDN博客_配置docker镜像源</a></p>
+<h3 id="然后安装envd"><a href="#然后安装envd" class="headerlink" title="然后安装envd"></a>然后安装envd</h3><p><a href="https://github.com/tensorchord/envd" target="_blank" rel="noopener">GitHub - tensorchord/envd: 🏕️ Reproducible development environment for AI/ML</a></p>
+<p>虽然系统预装了python 但并没有预装pip，使用以下命令安装pip3和envd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-pip</span><br><span class="line">pip3 install --pre --upgrade envd</span><br><span class="line"><span class="comment"># 对于非root用户，会报出权限错误：</span></span><br><span class="line"><span class="comment"># PermissionError: [Errno 13] 权限不够: '/usr/local/lib64/python3.6'</span></span><br><span class="line"><span class="comment"># 此时可以在pip3命令中加入参数 --user，使得软件安装在当前用户的目录下</span></span><br><span class="line"><span class="comment"># --user      Install to the Python user install directory for your platform. Typically ~/.local/, or %APPDATA%\Python on</span></span><br><span class="line"><span class="comment">#             Windows. (See the Python documentation for site.USER_BASE for full details.)</span></span><br><span class="line"></span><br><span class="line">pip3 install --pre --upgrade --user envd</span><br></pre></td></tr></table></figure>
+
+<p>安装之后理论上应该bootstrap，但是电脑提示找不到命令envd，经过一番丢人询问后发现是pip3路径没有加入PATH，把$HOME/.local/bin加入PATH即可（感谢ENVD大佬们不笑之恩…</p>
+<h2 id="使用Wine安装Win版微信和企业微信"><a href="#使用Wine安装Win版微信和企业微信" class="headerlink" title="使用Wine安装Win版微信和企业微信"></a>使用Wine安装Win版微信和企业微信</h2><p>Wine可以允许用户在Ubuntu上运行一些windows程序，这里用来安装微信和企微，安装ref：</p>
+<ol>
+<li><p>wine官网：<a href="https://www.winehq.org/announce/8.0.2" target="_blank" rel="noopener">https://www.winehq.org/announce/8.0.2</a></p>
+</li>
+<li><p>网上搜到的教程：<a href="https://blog.csdn.net/samsu0108/article/details/121783438" target="_blank" rel="noopener">Ubuntu 18.04 Wine下安装微信并成功解决疑难杂症_wine 微信_samsu0108的博客-CSDN博客</a></p>
+</li>
+</ol>
+<p>安装完成后直接去下载windows安装包，打开时直接选择用wine运行。安装完发现<strong>没法输入文字</strong>，需要安装riched20</p>
+<ol>
+<li><p><a href="https://blog.csdn.net/weixin_31414515/article/details/112639940" target="_blank" rel="noopener">不能输入_wine下微信不能输入文字的解决方案_流川枫海的博客-CSDN博客</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/vgerbot/p/17277497.html" target="_blank" rel="noopener">使用 wine 安装微信遇到的问题解决方法 - y1j2x34 - 博客园</a></p>
+</li>
+</ol>
+<p>于是安装riched20,又发现有两个程序下不下来。。。真的会谢，费了老劲儿在gayhub上找到了资源（百度盘: <a href="https://github.com/hillwoodroc/winetricks-zh/issues/95" target="_blank" rel="noopener">点我</a></p>
+<p>最后的结果是微信可以正常使用但经常闪退，企业微信是完全打不开。要注意用wine安装的微信传文件只能靠拖拽，右键另存为是摸不到正常的ubuntu文件系统路径的。</p>
+<h2 id="安装electron-ssr"><a href="#安装electron-ssr" class="headerlink" title="安装electron-ssr"></a>安装electron-ssr</h2><p>使用electron打包好的ssr，安装方便快捷，操作丝滑流畅，安装后可能需要手动设置一下系统代理。原作者已删裤隐退了，backup仓库：<a href="https://github.com/qingshuisiyuan/electron-ssr-backup/issues/26" target="_blank" rel="noopener">运行electron-ssr后报错且无法访问外网 · Issue #26 · qingshuisiyuan/electron-ssr-backup · GitHub</a></p>
+<p>安装倒是简单，但是怎么也连不上外网，一个世纪后才终于修好了electron-ssr 再次见到了我的Chrome插件和书签……两个令人印象深刻的bug：</p>
+<ol>
+<li>设置python-is-python3; </li>
+<li>ssr调库的时候在libsodium和libcrypto前面都又加了一个lib，混乱中立人懒得定位问题直接两个软链接</li>
+</ol>
+<p>啊 这久违的村通网的感觉</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2023/09/06/%E6%89%93%E5%B7%A5%E6%97%A5%E8%AE%B0001/" data-id="clm7g0row0000h0kyakc5e7ix" class="article-share-link">
+                                            分享
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-ftplib下载JRA-55逐日数据" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
         
@@ -628,7 +730,7 @@
 </ul>
     </div>
     <ul class="list-inline">
-      <li>&copy; 2020 Rika &amp; Pocky</li>
+      <li>&copy; 2023 Rika &amp; Pocky</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
     </ul>
